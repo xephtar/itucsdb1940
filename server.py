@@ -16,7 +16,13 @@ def show_dummy():
 
 @app.route("/dummy_insert/", methods=['GET'])
 def insert_dummy():
-    db_client.query(exp)
+    db_client.insert()
+    return redirect(url_for('show_dummy'))
+
+
+@app.route("/dummy_insert/", methods=['POST'])
+def insert_dummy_post():
+    db_client.insert()
     return redirect(url_for('show_dummy'))
 
 
