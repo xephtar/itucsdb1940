@@ -17,9 +17,9 @@ class Client(object):
             self.connection.rollback()
             raise
 
-    def insert(self):
+    def insert(self, statement, params=None):
         try:
-            self.cursor.execute("INSERT INTO DUMMY VALUES (33)")
+            self.cursor.execute(statement, params)
             self.connection.commit()
         except:
             self.connection.rollback()

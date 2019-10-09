@@ -2,8 +2,9 @@ from flask import Flask, jsonify, redirect, url_for
 from client.db_client import db_client
 
 
-exp = '''SELECT * FROM dummy'''
-exp_insert = '''INSERT INTO DUMMY VALUES (33)'''
+exp = '''SELECT * FROM DUMMY'''
+exp_insert = '''INSERT INTO DUMMY VALUES (%s)'''
+exp_insert = '''INSERT INTO DUMMY VALUES (%s)'''
 
 app = Flask(__name__)
 
@@ -14,15 +15,9 @@ def show_dummy():
     return jsonify(rows)
 
 
-@app.route("/dummy_insert/", methods=['GET'])
-def insert_dummy():
-    db_client.insert()
-    return redirect(url_for('show_dummy'))
-
-
 @app.route("/dummy_insert/", methods=['POST'])
 def insert_dummy_post():
-    db_client.insert()
+    db_client.insert(exp_insert, (33,))
     return redirect(url_for('show_dummy'))
 
 
