@@ -3,7 +3,7 @@ from client.db_client import db_client
 
 
 exp = '''SELECT * FROM dummy'''
-exp_insert = '''INSERT INTO dummy VALUES (%s)'''
+exp_insert = '''INSERT INTO dummy (num) VALUES (%s)'''
 
 app = Flask(__name__)
 
