@@ -3,7 +3,7 @@ from client.db_client import db_client
 
 
 exp = '''SELECT * FROM dummy'''
-exp_insert = '''INSERT INTO dummy (num) VALUES (%s)'''
+exp_insert = '''INSERT INTO DUMMY VALUES (33)'''
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def show_dummy():
 
 @app.route("/dummy_insert/", methods=['GET'])
 def insert_dummy():
-    db_client.query(exp, 33)
+    db_client.query(exp)
     return redirect(url_for('show_dummy'))
 
 
