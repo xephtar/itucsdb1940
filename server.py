@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask, jsonify, redirect, url_for
 from client.db_client import db_client
 
 
@@ -16,7 +16,8 @@ def show_dummy():
 
 @app.route("/dummy_insert/", methods=['GET'])
 def insert_dummy():
-    return db_client.query(exp, 33)
+    db_client.query(exp, 33)
+    return redirect(url_for('show_dummy'))
 
 
 @app.route("/")
