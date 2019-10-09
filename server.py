@@ -15,7 +15,7 @@ def show_dummy():
 
 
 @app.route("/dummy_insert/", methods=['GET'])
-def show_dummy():
+def insert_dummy():
     return db_client.query(exp, 33)
 
 
