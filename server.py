@@ -1,29 +1,16 @@
-import psycopg2
-import os
-from flask import Flask, redirect, url_for
-from flask import jsonify
+from flask import Flask,jsonify
+from client.db_client import db_client
 
 
-url = os.getenv("DATABASE_URL")
+exp = '''SELECT * FROM dummy'''
 
 
 app = Flask(__name__)
 
-con = psycopg2.connect(url)
-
-# cursor
-cur = con.cursor()
-
-
-def print_dummy():
-    cur.execute("select * from dummy")
-    rows = cur.fetchall()
-    return rows
-
 
 @app.route("/dummy/", methods=['GET'])
 def show_dummy():
-    rows = print_dummy()
+    rows = db_client.fetch(exp)
     return jsonify(rows)
 
 
@@ -34,8 +21,3 @@ def home_page():
 
 if __name__ == '__main__':
     app.run()
-
-# close the cursor
-cur.close()
-# close the connection
-con.close()
