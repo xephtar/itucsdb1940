@@ -6,7 +6,13 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
     "CREATE TABLE IF NOT EXISTS DUMMY (NUM INTEGER)",
-    "INSERT INTO DUMMY VALUES (12)",
+    '''CREATE TABLE public.vets(
+    id bigint NOT NULL AUTO_INCREMENT,
+    name text COLLATE pg_catalog."default",
+    age integer,
+    CONSTRAINT vets_pkey PRIMARY KEY (id)
+    )''',
+
 ]
 
 
