@@ -20,7 +20,7 @@ def show_dummy():
 def show_vets():
     rows = db_client.fetch(fecthing_vets)
     if rows:
-        return jsonify({rows}), 200
+        return jsonify(rows)
     else:
         return "Nothing to show..."
 
