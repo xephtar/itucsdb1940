@@ -7,13 +7,20 @@ import psycopg2 as dbapi2
 INIT_STATEMENTS = [
     "CREATE TABLE IF NOT EXISTS DUMMY (NUM INTEGER)",
     '''
-    CREATE SEQUENCE public.vet_id_seq
+    CREATE SEQUENCE IF NOT EXISTS public.vet_id_seq
     INCREMENT 1
-    START 22
+    START 1
     MINVALUE 1
     MAXVALUE 99999999
     CACHE 1;
     ''',
+    '''CREATE TABLE public.vets
+    (
+    id bigint NOT NULL DEFAULT nextval('vet_id_seq'::regclass),
+    name text COLLATE pg_catalog."default",
+    age integer,
+    CONSTRAINT vets_pkey PRIMARY KEY (id)
+    )''',
 ]
 
 
