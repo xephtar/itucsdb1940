@@ -5,7 +5,7 @@ from client.db_client import db_client
 exp = '''SELECT * FROM DUMMY'''
 fecthing_vets = '''SELECT * FROM VETS'''
 exp_insert = '''INSERT INTO DUMMY VALUES (%s)'''
-vet_insert = '''INSERT INTO VETS (name,age) values (%s, %s, %s)'''
+vet_insert = '''INSERT INTO VETS (id,name,age) values (%s, %s, %s)'''
 
 app = Flask(__name__)
 
@@ -16,10 +16,10 @@ def show_dummy():
     return jsonify(rows)
 
 
-@app.route("/vets/", methods=['GET'])
-def show_vets():
-    rows = db_client.fetch(fecthing_vets)
-    return jsonify(rows)
+# @app.route("/vets/", methods=['GET'])
+# def show_vets():
+#     rows = db_client.fetch(fecthing_vets)
+#     return jsonify(rows)
 
 
 @app.route("/dummy_insert/", methods=['POST'])
@@ -28,10 +28,10 @@ def insert_dummy_post():
     return redirect(url_for('show_dummy'))
 
 
-@app.route("/vet_insert/", methods=['POST'])
-def insert_dummy_post():
-    db_client.insert(vet_insert, ("Ahmet Davarci", 18))
-    return redirect(url_for('show_vets'))
+# @app.route("/vet_insert/", methods=['POST'])
+# def insert_dummy_post():
+#     db_client.insert(vet_insert, (nextval('vet_id_seq'), "Ahmet Davarci", 18))
+#     return redirect(url_for('show_vets'))
 
 
 @app.route("/")
