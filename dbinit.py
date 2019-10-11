@@ -14,7 +14,7 @@ INIT_STATEMENTS = [
     MAXVALUE 99999999
     CACHE 1;
     ''',
-    '''CREATE TABLE public.vets
+    '''CREATE TABLE IF NOT EXISTS public.vets
     (
     id bigint NOT NULL DEFAULT nextval('vet_id_seq'::regclass),
     name text COLLATE pg_catalog."default",
