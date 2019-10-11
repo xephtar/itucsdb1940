@@ -18,9 +18,9 @@ def show_dummy():
 
 @app.route("/vets/", methods=['GET'])
 def show_vets():
-    rows = db_client.fetch(fecthing_vets)
+    rows = list(db_client.fetch(fecthing_vets))
     if rows:
-        return jsonify(rows)
+        return jsonify(**rows)
     else:
         return "Nothing to show..."
 
