@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, url_for
+from flask import Flask, jsonify, redirect, url_for, request
 from client.db_client import db_client
 
 
@@ -25,6 +25,16 @@ def show_vets():
         return "Nothing to show..."
 
 
+@app.route("/vet_register/", methods=['GET'])
+def show_form():
+    form = """<form action="/vet_insert/" method="post">
+  Name : <input type="text" name="name" id="name"><br>
+  Age : <input type="number" name="age" id="age"><br>
+  <input type="submit" value="submit">
+    </form>"""
+    return form
+
+
 @app.route("/dummy_insert/", methods=['POST'])
 def insert_dummy_post():
     db_client.insert(exp_insert, (33,))
@@ -33,7 +43,9 @@ def insert_dummy_post():
 
 @app.route("/vet_insert/", methods=['POST'])
 def insert_vet_post():
-    db_client.insert(vet_insert, ('Ahmet Davarci', 18))
+    data = request.form
+    if data:
+        db_client.insert(vet_insert, (data['name'], data['age']))
     return redirect(url_for('show_vets'))
 
 
