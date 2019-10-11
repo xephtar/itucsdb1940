@@ -29,7 +29,7 @@ def insert_dummy_post():
 
 
 @app.route("/vet_insert/", methods=['POST'])
-def insert_dummy_post():
+def insert_vet_post():
     db_client.insert(vet_insert, ('Ahmet Davarci', 18))
     return redirect(url_for('show_vets'))
 
