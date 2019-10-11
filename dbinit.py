@@ -6,13 +6,21 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
     "CREATE TABLE IF NOT EXISTS DUMMY (NUM INTEGER)",
-    '''CREATE TABLE public.vets(
-    id bigint NOT NULL AUTO_INCREMENT,
+    '''CREATE TABLE public.vets
+    (
+    id bigint NOT NULL DEFAULT nextval('vet_id_seq'::regclass),
     name text COLLATE pg_catalog."default",
     age integer,
     CONSTRAINT vets_pkey PRIMARY KEY (id)
     )''',
-
+    '''
+    CREATE SEQUENCE public.vet_id_seq
+    INCREMENT 1
+    START 22
+    MINVALUE 1
+    MAXVALUE 99999999
+    CACHE 1;
+    ''',
 ]
 
 
