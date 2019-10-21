@@ -92,7 +92,7 @@ class Vets:
             values.append(value)
 
         exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
-            table_name=cls.__name__.lower().join(params),
+            table_name=cls.__name__.lower()
         )
 
         rows = db_client.fetch(exp, values)
