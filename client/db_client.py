@@ -20,6 +20,7 @@ class Client(object):
     def fetch(self, statement, params=None):
         try:
             self.cursor.execute(statement, params)
+            self.connection.commit()
             return self.cursor.fetchall()
         except:
             self.connection.rollback()
