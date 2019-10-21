@@ -107,6 +107,5 @@ class Vets:
     @classmethod
     def create(cls, **kwargs):
         obj = cls(**kwargs)
-        obj.save()
-        return obj
+        return obj.save()
 
