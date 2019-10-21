@@ -51,5 +51,5 @@ class VetsListAPI(Resource):
         if args:
             u = Vets.create(**args)
             if u:
-                return redirect(url_for('/vets/'))
+                return redirect('/vets/')
         return {}, 404
