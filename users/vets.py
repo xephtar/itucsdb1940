@@ -59,10 +59,7 @@ class Vets:
                     '{}'.format('name'),
                     '{}'.format('age')
                 ]),
-                values=','.join([
-                    str(self.name),
-                    str(self.age)
-                ])
+                values=','.join(['%s', '%s'])
             )
 
             self.id = db_client.fetch(exp, (self.name,
