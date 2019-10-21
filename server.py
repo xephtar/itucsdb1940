@@ -11,7 +11,7 @@ vet_insert = '''INSERT INTO VETS (name,age) values (%s, %s)'''
 app = Flask(__name__)
 api = Api(app)
 
-api.add_resource(VetsAPI, '/users/<int:id>')
+api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
 
 

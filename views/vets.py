@@ -38,7 +38,6 @@ class VetsListAPI(Resource):
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=int)
 
-
     def get(self):
         qs = Vets.filter()
         if qs:
