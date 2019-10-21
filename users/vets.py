@@ -63,10 +63,7 @@ class Vets:
             )
 
             db_client.create(exp, (self.name, self.age))
-        exp = '''SELECT * FROM VETS'''
-        v = db_client.fetch(exp)
-        print(v)
-        return self
+        return self.filter()
 
     def update(self, **kwargs):
         set_params = []
