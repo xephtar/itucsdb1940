@@ -84,7 +84,7 @@ class Vets:
 
     @classmethod
     def filter(cls, **kwargs):
-        params = ['TRUE']
+        params = []
         values = []
 
         for key, value in kwargs.items():

@@ -7,7 +7,7 @@ class VetsAPI(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
-        self.parser.add_argument('name', type=int)
+        self.parser.add_argument('age', type=int)
 
     def get(self, id):
         u = Vets.get(id=id)
