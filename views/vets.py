@@ -36,7 +36,7 @@ class VetsListAPI(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
-        self.parser.add_argument('age', type=int)
+        self.parser.add_argument('age', type=str)
 
     def get(self):
         qs = Vets.filter()
