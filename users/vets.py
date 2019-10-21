@@ -60,8 +60,8 @@ class Vets:
                     '{}'.format('age')
                 ]),
                 values=','.join([
-                    self.name,
-                    self.age
+                    str(self.name),
+                    int(self.age)
                 ])
             )
 
