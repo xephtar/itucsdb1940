@@ -43,7 +43,7 @@ class Vets:
         if self.id:
             update_set = ','.join([
                 "{key}=%s".format(key='name'),
-                "{key}=%s".format(key='age'),
+                "{key}=%s".format(key='age')
             ])
             exp = '''UPDATE {table_name} SET {values} WHERE id=%s RETURNING id'''.format(
                 table_name=self.__class__.__name__.lower(),
@@ -59,6 +59,10 @@ class Vets:
                     '{}'.format('name'),
                     '{}'.format('age')
                 ]),
+                values=','.join([
+                    self.name,
+                    self.age
+                ])
             )
 
             self.id = db_client.fetch(exp, (self.name,
