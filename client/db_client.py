@@ -29,7 +29,6 @@ class Client(object):
         try:
             self.cursor.execute(statement, params)
             self.connection.commit()
-            return self.cursor.fetchall()
         except:
             self.connection.rollback()
             raise
