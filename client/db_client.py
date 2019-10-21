@@ -28,7 +28,8 @@ class Client(object):
     def create(self, statement, params=None):
         try:
             self.cursor.execute(statement, params)
-            return self.connection.commit()
+            self.connection.commit()
+            return self.cursor.fetchone()[0]
         except:
             self.connection.rollback()
             raise
