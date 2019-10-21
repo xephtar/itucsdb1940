@@ -1,4 +1,4 @@
-from client import db_client
+from client.db_client import db_client
 
 
 class QueryList(list):
