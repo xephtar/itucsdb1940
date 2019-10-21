@@ -63,7 +63,7 @@ class Vets:
             )
 
             db_client.create(exp, (self.name, self.age))
-        return self.filter()
+        return self
 
     def update(self, **kwargs):
         set_params = []

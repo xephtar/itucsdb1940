@@ -1,4 +1,5 @@
 from flask_restful import reqparse, Resource
+from flask import redirect, url_for
 from users.vets import Vets
 
 
@@ -50,5 +51,5 @@ class VetsListAPI(Resource):
         if args:
             u = Vets.create(**args)
             if u:
-                return u.__dict__
+                return redirect(url_for('/vets/'))
         return {}, 404
