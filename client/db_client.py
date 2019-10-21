@@ -17,14 +17,6 @@ class Client(object):
             self.connection.rollback()
             raise
 
-    def insert(self, statement, params=None):
-        try:
-            self.cursor.execute(statement, params)
-            self.connection.commit()
-        except:
-            self.connection.rollback()
-            raise
-
     def fetch(self, statement, params=None):
         try:
             self.cursor.execute(statement, params)
