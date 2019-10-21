@@ -61,7 +61,7 @@ class Vets:
                 ]),
                 values=','.join([
                     str(self.name),
-                    int(self.age)
+                    str(self.age)
                 ])
             )
 
