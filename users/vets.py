@@ -62,7 +62,10 @@ class Vets:
                 values=','.join(['%s', '%s'])
             )
 
-            self.id = db_client.create(exp, (self.name, self.age))[0][0]
+            db_client.create(exp, (self.name, self.age))
+        exp = '''SELECT * FROM VETS'''
+        v = db_client.fetch(exp)
+        print(v)
         return self
 
     def update(self, **kwargs):
