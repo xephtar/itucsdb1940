@@ -1,4 +1,4 @@
-{% block title %}Movie list{% endblock %}
+{% block title %}Owner Register Page{% endblock %}
 {% block content %}
     <h1 class="title">Movies</h1>
 
@@ -10,7 +10,8 @@
           {{ vet.name }}
         </td>
       </tr>
-        {% endfor %}
     </table>
+        <option value="{{ vet.id }}">{{ vet.name }}</option>
+        {% endfor %}
     {% endif %}
 {% endblock %}
