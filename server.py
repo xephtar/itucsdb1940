@@ -9,7 +9,7 @@ fecthing_vets = '''SELECT * FROM VETS'''
 exp_insert = '''INSERT INTO DUMMY VALUES (%s)'''
 vet_insert = '''INSERT INTO VETS (name,age) values (%s, %s)'''
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='template')
 api = Api(app)
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
