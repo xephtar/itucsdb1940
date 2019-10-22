@@ -1,6 +1,6 @@
 from flask_restful import reqparse, Resource
-from flask import redirect, url_for
-from users.vets import Vets
+from flask import redirect
+from models.vets import Vets
 
 
 class VetsAPI(Resource):
