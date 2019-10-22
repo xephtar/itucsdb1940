@@ -4,11 +4,10 @@
 
     {% if vets_list %}
     <table class="table is-striped is-fullwidth">
-      {% for id, vet in vets_list %}
+      {% for vet in vets_list %}
       <tr>
         <td>
           {{ vet.name }}
-          {% if vet.age %} ({{ vet.age }}) {% endif %}
         </td>
       </tr>
         {% endfor %}

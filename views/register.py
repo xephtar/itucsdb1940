@@ -1,9 +1,9 @@
 from models.vets import Vets
 from flask import render_template
-
+from models.vets import Vets
 
 def register_page():
-    v = Vets.get(id=id)
-    if v:
-        _vets_list = v.__dict__
+    qs = Vets.filter()
+    if qs:
+        _vets_list = [u.__dict__ for u in qs]
         return render_template('register.html', vets_list=sorted(_vets_list))

@@ -43,7 +43,7 @@ class VetsListAPI(Resource):
         qs = Vets.filter()
         if qs:
             r = [u.__dict__ for u in qs]
-            return r, 200
+            return r
         return {}, 404
 
     def post(self):
