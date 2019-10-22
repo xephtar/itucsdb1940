@@ -2,7 +2,8 @@ from flask import Flask, jsonify, redirect, url_for
 from flask_restful import Api
 from client.db_client import db_client
 from views.vets import VetsAPI, VetsListAPI
-from views.register import register_page
+from models.vets import Vets
+
 
 exp = '''SELECT * FROM DUMMY'''
 fecthing_vets = '''SELECT * FROM VETS'''
@@ -14,6 +15,15 @@ api = Api(app)
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
+
+
+def register_page():
+    v = Vets.get(id=id)
+    if v:
+        _vets_list = v.__dict__
+        return render_template("register.html", vets_list=sorted(_vets_list))
+
+
 app.add_url_rule("/owner_register/", view_func=register_page)
 
 
@@ -37,14 +47,6 @@ def show_form():
 def insert_dummy_post():
     db_client.insert(exp_insert, (33,))
     return redirect(url_for('show_dummy'))
-
-
-# @app.route("/vet_insert/", methods=['POST'])
-# def insert_vet_post():
-#     data = request.form
-#     if data:
-#         db_client.insert(vet_insert, (data['name'], data['age']))
-#     return redirect(url_for('show_vets'))
 
 
 @app.route("/")

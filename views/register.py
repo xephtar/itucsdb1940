@@ -6,6 +6,4 @@ def register_page():
     v = Vets.get(id=id)
     if v:
         _vets_list = v.__dict__
-        return render_template("../templates/register.html", vets_list=sorted(_vets_list))
-    else:
-        return 404
+        return render_template("register.html", vets_list=sorted(_vets_list))
