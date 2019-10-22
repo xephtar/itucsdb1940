@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, url_for
+from flask import Flask, jsonify, redirect, url_for, render_template
 from flask_restful import Api
 from client.db_client import db_client
 from views.vets import VetsAPI, VetsListAPI
