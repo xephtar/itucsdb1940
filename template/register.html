@@ -1,19 +1,11 @@
 {% block title %}Owner Register Page{% endblock %}
 {% block content %}
-    <h1 class="title">Movies</h1>
-
+    <h1 class="title">Owners</h1>
     {% if vets_list %}
-    <table class="table is-striped is-fullwidth">
+    <select>
       {% for vet in vets_list %}
-      <tr>
-        <td>
-          {{ vet.name }}
-        </td>
-      </tr>
-    </table>
-          <select>
-            <option value="{{ vet.id }}">{{ vet.name }}</option>
-          </select>
-        {% endfor %}
+      <option value="{{ vet.id }}">{{ vet.name }}</option>
+      {% endfor %}
+    </select>
     {% endif %}
 {% endblock %}
