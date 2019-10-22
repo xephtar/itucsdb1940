@@ -11,7 +11,9 @@
         </td>
       </tr>
     </table>
-        <option value="{{ vet.id }}">{{ vet.name }}</option>
+          <select>
+            <option value="{{ vet.id }}">{{ vet.name }}</option>
+          </select>
         {% endfor %}
     {% endif %}
 {% endblock %}
