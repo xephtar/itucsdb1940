@@ -1,23 +1,6 @@
 from client.db_client import db_client
 
 
-class QueryList(list):
-
-    def update(self, **kwargs):
-        for item in self:
-            item.update(**kwargs)
-
-    def first(self):
-        if self:
-            return self[0]
-        return None
-
-    def last(self):
-        if self:
-            return self[-1]
-        return None
-
-
 class Vets:
     sql_fields = [
         "id bigint NOT NULL DEFAULT nextval('vet_id_seq'::regclass)",
@@ -98,7 +81,7 @@ class Vets:
         rows = db_client.fetch(exp, values)
         objects = [cls(*row) for row in rows]
 
-        return QueryList(objects)
+        return objects
 
     @classmethod
     def get(cls, **kwargs):
