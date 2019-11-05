@@ -1,4 +1,5 @@
 from client.db_client import db_client
+from models.queries import QueryList
 
 
 class Vets:
@@ -81,11 +82,11 @@ class Vets:
         rows = db_client.fetch(exp, values)
         objects = [cls(*row) for row in rows]
 
-        return objects
+        return QueryList(objects)
 
     @classmethod
     def get(cls, **kwargs):
-        return cls.filter(**kwargs)
+        return cls.filter(**kwargs).first()
 
     @classmethod
     def create(cls, **kwargs):

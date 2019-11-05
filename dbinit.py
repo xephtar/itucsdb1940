@@ -13,6 +13,14 @@ INIT_STATEMENTS = [
     MINVALUE 1
     MAXVALUE 99999999
     CACHE 1;
+    ''',
+    '''
+    CREATE SEQUENCE IF NOT EXISTS public.owners_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
     '''
 ]
 
