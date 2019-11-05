@@ -30,9 +30,9 @@ class Client(object):
         try:
             self.cursor.execute(statement, params)
             self.connection.commit()
-        except:
+        except Exception as err:
             self.connection.rollback()
-            raise
+            return '{%s}', err
 
     def __del__(self):
         self.connection.close()
