@@ -81,7 +81,7 @@ class Vets:
         rows = db_client.fetch(exp, values)
         objects = [cls(*row) for row in rows]
 
-        return QueryList(objects)
+        return objects
 
     @classmethod
     def get(cls, **kwargs):
