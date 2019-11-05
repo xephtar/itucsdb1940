@@ -15,7 +15,7 @@ api = Api(app)
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
-api.add_resource(OwnersAPI, '/owners/<int:id>')
+api.add_resource(OwnersAPI, '/owners/<int:phonenumber>')
 api.add_resource(OwnersListAPI, '/owners/')
 app.add_url_rule("/owner_register/", view_func=register_page)
 

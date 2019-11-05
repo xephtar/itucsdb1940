@@ -9,10 +9,10 @@ class OwnersAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=str)
-        self.parser.add_argument('phoneNumber', type=str)
+        self.parser.add_argument('phonenumber', type=int)
 
-    def get(self, id):
-        u = Owners.get(id=id)
+    def get(self, phonenumber):
+        u = Owners.get(phoneNumber=phonenumber)
         if u:
             return u.__dict__
         return {}, 404
@@ -39,7 +39,7 @@ class OwnersListAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('age', type=str)
         self.parser.add_argument('name', type=str)
-        self.parser.add_argument('phoneNumber', type=str)
+        self.parser.add_argument('phonenumber', type=str)
 
     def get(self):
         qs = Owners.filter()

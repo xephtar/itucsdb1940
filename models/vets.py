@@ -75,7 +75,7 @@ class Vets:
             params.append("{}=%s".format(key))
             values.append(value)
 
-        exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
+        exp = '''SELECT * FROM {table_name} WHERE id=%s ORDER BY id ASC'''.format(
             table_name=cls.__name__.lower()
         )
 

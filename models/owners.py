@@ -6,19 +6,19 @@ class Owners:
     sql_fields = [
         'age character varying(2) COLLATE pg_catalog."default"',
         'name text COLLATE pg_catalog."default"',
-        '"phoneNumber" character varying(10) COLLATE pg_catalog."default" NOT NULL',
+        '"phonenumber" character varying(10) COLLATE pg_catalog."default" NOT NULL',
         "id integer NOT NULL DEFAULT nextval('owners_id_seq'::regclass)",
-        'CONSTRAINT owners_pkey PRIMARY KEY ("phoneNumber")',
-        'CONSTRAINT owners_unique UNIQUE ("phoneNumber")'
+        'CONSTRAINT owners_pkey PRIMARY KEY ("phonenumber")',
+        'CONSTRAINT owners_unique UNIQUE ("phonenumber")'
     ]
 
     sql_field_number = len(sql_fields)
 
-    def __init__(self, id=None, name=None, age=None, phoneNumber=None):
+    def __init__(self, age=None, name=None, phonenumber=None, id=None):
         self.id = id
         self.name = name
         self.age = age
-        self.phoneNumber = phoneNumber
+        self.phonenumber = phonenumber
 
         exp = '''CREATE TABLE IF NOT EXISTS {table_name} ({fields})'''.format(
             table_name=self.__class__.__name__.lower(),
@@ -29,30 +29,30 @@ class Owners:
     def save(self):
         if self.id:
             update_set = ','.join([
-                "{key}=%s".format(key='name'),
                 "{key}=%s".format(key='age'),
-                "{key}=%s".format(key='phoneNumber'),
+                "{key}=%s".format(key='name'),
+                "{key}=%s".format(key='phonenumber'),
             ])
             exp = '''UPDATE {table_name} SET {values} WHERE id=%s RETURNING id'''.format(
                 table_name=self.__class__.__name__.lower(),
                 values=update_set,
             )
-            self.id = db_client.fetch(exp, (self.name,
-                                            self.age,
-                                            self.phoneNumber,
+            self.id = db_client.fetch(exp, (self.age,
+                                            self.name,
+                                            self.phonenumber,
                                             self.id))[0][0]
         else:
             exp = '''INSERT INTO {table_name} ({table_fields}) VALUES ({values})'''.format(
                 table_name=self.__class__.__name__.lower(),
                 table_fields=','.join([
-                    '{}'.format('name'),
                     '{}'.format('age'),
-                    '{}'.format('phoneNumber'),
+                    '{}'.format('name'),
+                    '{}'.format('phonenumber'),
                 ]),
                 values=','.join(['%s', '%s', '%s'])
             )
 
-            db_client.create(exp, (self.name, self.age, self.phoneNumber))
+            db_client.create(exp, (self.name, self.age, self.phonenumber))
         return self
 
     def update(self, **kwargs):
@@ -81,9 +81,14 @@ class Owners:
             params.append("{}=%s".format(key))
             values.append(value)
 
-        exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
-            table_name=cls.__name__.lower()
-        )
+        if kwargs.items():
+            exp = '''SELECT * FROM {table_name} WHERE phonenumber='%s' ORDER BY id ASC'''.format(
+                table_name=cls.__name__.lower()
+            )
+        else:
+            exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
+                table_name=cls.__name__.lower()
+            )
 
         rows = db_client.fetch(exp, values)
         objects = [cls(*row) for row in rows]
