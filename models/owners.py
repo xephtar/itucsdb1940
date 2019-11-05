@@ -6,7 +6,7 @@ class Owners:
         'age character varying(2) COLLATE pg_catalog."default"',
         'name text COLLATE pg_catalog."default"',
         '"phoneNumber" character varying(10) COLLATE pg_catalog."default" NOT NULL',
-        'id integer SERIAL',
+        "id integer NOT NULL DEFAULT nextval('owners_id_seq'::regclass)",
         'CONSTRAINT owners_pkey PRIMARY KEY ("phoneNumber")',
         'CONSTRAINT owners_unique UNIQUE ("phoneNumber")'
     ]
