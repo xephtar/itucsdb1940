@@ -85,7 +85,7 @@ class Vets:
 
     @classmethod
     def get(cls, **kwargs):
-        return cls.filter(**kwargs).__getitem__(0)
+        return cls.filter(**kwargs)
 
     @classmethod
     def create(cls, **kwargs):
