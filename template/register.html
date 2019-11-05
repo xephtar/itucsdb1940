@@ -1,6 +1,7 @@
 {% block title %}Owner Register Page{% endblock %}
 {% block content %}
     <h1 class="title">Owners</h1>
+    <label>
     <form action="/owners/" method="post">
         Name : <input type="text" name="name" id="name"><br>
         Age : <input type="number" name="age" id="age"><br>
@@ -9,11 +10,14 @@
        required><br>
     <input type="submit" value="submit">
     </form>
+    </label>
     {% if vets_list %}
-    <select>
-      {% for vet in vets_list %}
-      <option value="{{ vet.id }}">{{ vet.name }}</option>
-      {% endfor %}
-    </select>
+        <label>
+            <select>
+              {% for vet in vets_list %}
+              <option value="{{ vet.id }}">{{ vet.name }}</option>
+              {% endfor %}
+            </select>
+        </label>
     {% endif %}
 {% endblock %}
