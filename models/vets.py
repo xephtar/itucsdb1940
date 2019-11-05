@@ -75,9 +75,14 @@ class Vets:
             params.append("{}=%s".format(key))
             values.append(value)
 
-        exp = '''SELECT * FROM {table_name} WHERE id=%s ORDER BY id ASC'''.format(
-            table_name=cls.__name__.lower()
-        )
+        if kwargs.items():
+            exp = '''SELECT * FROM {table_name} WHERE id=%s ORDER BY id ASC'''.format(
+                table_name=cls.__name__.lower()
+            )
+        else:
+            exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
+                table_name=cls.__name__.lower()
+            )
 
         rows = db_client.fetch(exp, values)
         objects = [cls(*row) for row in rows]

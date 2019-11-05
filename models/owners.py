@@ -29,8 +29,8 @@ class Owners:
     def save(self):
         if self.id:
             update_set = ','.join([
-                "{key}=%s".format(key='age'),
                 "{key}=%s".format(key='name'),
+                "{key}=%s".format(key='age'),
                 "{key}=%s".format(key='phonenumber'),
             ])
             exp = '''UPDATE {table_name} SET {values} WHERE id=%s RETURNING id'''.format(
@@ -52,7 +52,7 @@ class Owners:
                 values=','.join(['%s', '%s', '%s'])
             )
 
-            db_client.create(exp, (self.name, self.age, self.phonenumber))
+            db_client.create(exp, (self.age, self.name, self.phonenumber))
         return self
 
     def update(self, **kwargs):
