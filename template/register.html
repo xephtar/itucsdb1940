@@ -1,6 +1,14 @@
 {% block title %}Owner Register Page{% endblock %}
 {% block content %}
     <h1 class="title">Owners</h1>
+    <form action="/owners/" method="post">
+        Name : <input type="text" name="name" id="name"><br>
+        Age : <input type="number" name="age" id="age"><br>
+        Phone : <input type="tel" id="phoneNumber" name="phoneNumber"
+       pattern="[0-9]{10}"
+       required><br>
+    <input type="submit" value="submit">
+    </form>
     {% if vets_list %}
     <select>
       {% for vet in vets_list %}

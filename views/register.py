@@ -1,6 +1,6 @@
-from models.vets import Vets
 from flask import render_template
 from models.vets import Vets
+
 
 def register_page():
     qs = Vets.filter()

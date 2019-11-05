@@ -2,6 +2,7 @@ from flask import Flask, jsonify, redirect, url_for
 from flask_restful import Api
 from client.db_client import db_client
 from views.vets import VetsAPI, VetsListAPI
+from views.owners import OwnersAPI, OwnersListAPI
 from views.register import register_page
 
 exp = '''SELECT * FROM DUMMY'''
@@ -14,6 +15,8 @@ api = Api(app)
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
+api.add_resource(OwnersAPI, '/owners/<int:id>')
+api.add_resource(OwnersListAPI, '/owners/')
 app.add_url_rule("/owner_register/", view_func=register_page)
 
 
