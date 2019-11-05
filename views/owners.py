@@ -9,10 +9,10 @@ class OwnersAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=str)
-        self.parser.add_argument('phonenumber', type=int)
+        self.parser.add_argument('phonenumber', type=str)
 
     def get(self, phonenumber):
-        u = Owners.get(phoneNumber=phonenumber)
+        u = Owners.get(phonenumber=phonenumber)
         if u:
             return u.__dict__
         return {}, 404

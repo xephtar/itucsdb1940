@@ -1,5 +1,4 @@
 from client.db_client import db_client
-from models.queries import QueryList
 
 
 class Owners:
@@ -37,8 +36,8 @@ class Owners:
                 table_name=self.__class__.__name__.lower(),
                 values=update_set,
             )
-            self.id = db_client.fetch(exp, (self.age,
-                                            self.name,
+            self.id = db_client.fetch(exp, (self.name,
+                                            self.age,
                                             self.phonenumber,
                                             self.id))[0][0]
         else:
@@ -51,8 +50,8 @@ class Owners:
                 ]),
                 values=','.join(['%s', '%s', '%s'])
             )
-
             db_client.create(exp, (self.age, self.name, self.phonenumber))
+
         return self
 
     def update(self, **kwargs):
@@ -82,8 +81,12 @@ class Owners:
             values.append(value)
 
         if kwargs.items():
-            exp = '''SELECT * FROM {table_name} WHERE phonenumber='%s' ORDER BY id ASC'''.format(
-                table_name=cls.__name__.lower()
+            exp = '''SELECT * FROM {table_name} WHERE {table_fields} = {values}'''.format(
+                table_name=cls.__name__.lower(),
+                table_fields=','.join([
+                    '{}'.format('phonenumber'),
+                ]),
+                values=','.join(['%s'])
             )
         else:
             exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
@@ -91,13 +94,29 @@ class Owners:
             )
 
         rows = db_client.fetch(exp, values)
-        objects = [cls(*row) for row in rows]
+        if rows:
+            objects = [cls(*row) for row in rows]
+            return objects
+        else:
+            return {}, 404
 
-        return QueryList(objects)
+    def save_relation(self):
+        exp_relation_table = '''INSERT INTO {table_name} ({table_fields}) VALUES ({values})'''.format(
+            table_name='vets_to_owners',
+            table_fields=','.join([
+                '{}'.format('owner_phone'),
+                '{}'.format('vet_id'),
+            ]),
+            values=','.join(['%s', '%s'])
+        )
+
+        u = self.get(phonenumber=self.phonenumber)
+        if u:
+            db_client.create(exp_relation_table, (self.phonenumber, self.vet))
 
     @classmethod
     def get(cls, **kwargs):
-        return cls.filter(**kwargs).first()
+        return cls.filter(**kwargs).__getitem__(0)
 
     @classmethod
     def create(cls, **kwargs):

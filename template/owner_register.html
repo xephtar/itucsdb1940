@@ -7,13 +7,13 @@
                 Name : <input type="text" name="name" id="name"><br>
                 Age : <input type="number" name="age" id="age"><br>
                 Phone : <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required><br>
-            <input type="submit" value="submit">
-            </form>
-            <select>
+            <select name="vet">
               {% for vet in vets_list %}
               <option value="{{ vet.id }}">{{ vet.name }}</option>
               {% endfor %}
             </select>
+            <input type="submit" value="submit">
+            </form>
         </label>
     {% endif %}
 {% endblock %}
