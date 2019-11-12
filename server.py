@@ -5,6 +5,8 @@ from views.owners import OwnersAPI, OwnersListAPI
 from views.url import owner_register, vet_register, home_page
 
 app = Flask(__name__, template_folder='template')
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 api = Api(app)
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
