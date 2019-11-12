@@ -3,9 +3,11 @@ from flask_restful import Api
 from views.vets import VetsAPI, VetsListAPI
 from views.owners import OwnersAPI, OwnersListAPI
 from views.url import owner_register, vet_register, home_page
+import secrets
 
 app = Flask(__name__, template_folder='template')
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+app.secret_key = secrets.token_urlsafe(16)
 
 api = Api(app)
 
