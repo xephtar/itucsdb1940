@@ -9,3 +9,5 @@ __pycache__
 
 venv/
 docs/build/
+client/db_client.py
+dbinit.py
