@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Owner Register Page{% endblock %}
+{% block content %}
+    <h1 class="title">Owners</h1>
+    {% if vets_list %}
+        <label>
+            <form action="{{ url_for('ownerslistapi') }}" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="name" required="required"><br>
+                <label for="age">Age</label><br>
+                <input type="number" name="age" id="age" maxlength="2" size="2" required="required"><br>
+                <label for="phonenumber">Phone Number</label><br>
+                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required="required"><br>
+            <label for="vet_id">Vets</label><br>
+            <select id="vet_id" name="vet_id">
+              {% for vet in vets_list %}
+              <option value="{{ vet.id }}">{{ vet.name }}</option>
+              {% endfor %}
+            </select><br>
+            <input type="submit" value="submit">
+            </form>
+        </label>
+    {% endif %}
+{% endblock %}

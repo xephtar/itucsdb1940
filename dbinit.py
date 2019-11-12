@@ -5,8 +5,22 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = [
-    "CREATE TABLE IF NOT EXISTS DUMMY (NUM INTEGER)",
-    "INSERT INTO DUMMY VALUES (42)",
+    '''
+    CREATE SEQUENCE IF NOT EXISTS public.vet_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 99999999
+    CACHE 1;
+    ''',
+    '''
+    CREATE SEQUENCE IF NOT EXISTS public.owners_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+    '''
 ]
 
 
@@ -24,3 +38,4 @@ if __name__ == "__main__":
         print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
         sys.exit(1)
     initialize(url)
+
