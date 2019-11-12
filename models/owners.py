@@ -50,7 +50,9 @@ class Owners:
                 ]),
                 values=','.join(['%s', '%s', '%s'])
             )
-            db_client.create(exp, (self.age, self.name, self.phonenumber))
+            c = db_client.create(exp, (self.age, self.name, self.phonenumber))
+            if c:
+                return '{}'.format(404)
 
         return self
 
@@ -79,7 +81,6 @@ class Owners:
         for key, value in kwargs.items():
             params.append("{}=%s".format(key))
             values.append(value)
-
         if kwargs.items():
             exp = '''SELECT * FROM {table_name} WHERE {table_fields} = {values}'''.format(
                 table_name=cls.__name__.lower(),
@@ -98,21 +99,7 @@ class Owners:
             objects = [cls(*row) for row in rows]
             return objects
         else:
-            return {}, 404
-
-    def save_relation(self):
-        exp_relation_table = '''INSERT INTO {table_name} ({table_fields}) VALUES ({values})'''.format(
-            table_name='vets_to_owners',
-            table_fields=','.join([
-                '{}'.format('owner_phone'),
-                '{}'.format('vet_id'),
-            ]),
-            values=','.join(['%s', '%s'])
-        )
-
-        u = self.get(phonenumber=self.phonenumber)
-        if u:
-            db_client.create(exp_relation_table, (self.phonenumber, self.vet))
+            return '{}'.format(404)
 
     @classmethod
     def get(cls, **kwargs):

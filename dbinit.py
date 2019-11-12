@@ -5,7 +5,6 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = [
-    "CREATE TABLE IF NOT EXISTS DUMMY (NUM INTEGER)",
     '''
     CREATE SEQUENCE IF NOT EXISTS public.vet_id_seq
     INCREMENT 1

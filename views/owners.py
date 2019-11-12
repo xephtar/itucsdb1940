@@ -1,6 +1,7 @@
 from flask_restful import reqparse, Resource
-from flask import redirect
+from flask import redirect, flash
 from models.owners import Owners
+from models.vets_to_owners import Vets_to_Owners
 
 
 class OwnersAPI(Resource):
@@ -50,8 +51,22 @@ class OwnersListAPI(Resource):
 
     def post(self):
         args = self.parser.parse_args()
+        vet = reqparse.RequestParser()
+        vet.add_argument('phonenumber', type=str)
+        vet.add_argument('vet_id', type=int)
+        vet = vet.parse_args()
         if args:
             u = Owners.create(**args)
-            if u:
-                return redirect('/owners/')
+            ovr = Vets_to_Owners.create(**vet)
+            if u == '404':
+                flash('You were failed to create Owner!')
+            else:
+                flash('You were successfully created Owner!')
+
+            if ovr == '404':
+                flash('You were failed to add Vet!')
+            else:
+                flash('You were successfully added Vet!')
+
+            return redirect('/')
         return {}, 404

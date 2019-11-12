@@ -2,7 +2,7 @@ from flask import render_template
 from models.vets import Vets
 
 
-def list_vets():
+def owner_register():
     qs = Vets.filter()
     if qs:
         _vets_list = [u.__dict__ for u in qs]
@@ -11,3 +11,7 @@ def list_vets():
 
 def vet_register():
     return render_template('vet_register.html')
+
+
+def home_page():
+    return render_template('base.html')

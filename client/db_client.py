@@ -32,7 +32,7 @@ class Client(object):
             self.connection.commit()
         except Exception as err:
             self.connection.rollback()
-            return '{%s}', err
+            return '{}'.format(err)
 
     def __del__(self):
         self.connection.close()
