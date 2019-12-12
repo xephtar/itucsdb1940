@@ -58,7 +58,7 @@ class Vets_to_Owners:
             params.append("{}=%s".format(key))
             values.append(value)
 
-        if kwargs.items():
+        if bool(kwargs.items()):
             exp = '''SELECT * FROM {table_name} WHERE {table_fields} = {values}'''.format(
                 table_name=cls.__name__.lower(),
                 table_fields=','.join([

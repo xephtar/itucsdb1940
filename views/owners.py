@@ -1,3 +1,4 @@
+from flask_login import login_required
 from flask_restful import reqparse, Resource
 from flask import redirect, flash
 from models.owners import Owners
@@ -5,6 +6,7 @@ from models.vets_to_owners import Vets_to_Owners
 
 
 class OwnersAPI(Resource):
+    method_decorators = [login_required]
 
     def __init__(self):
         self.parser = reqparse.RequestParser()
@@ -18,9 +20,9 @@ class OwnersAPI(Resource):
             return u.__dict__
         return {}, 404
 
-    def put(self, id):
+    def put(self, phonenumber):
         args = self.parser.parse_args()
-        u = Owners.get(id=id)
+        u = Owners.get(phonenumber=phonenumber)
         if u and args:
             u.update(**args)
             return u.__dict__
@@ -35,6 +37,7 @@ class OwnersAPI(Resource):
 
 
 class OwnersListAPI(Resource):
+    method_decorators = [login_required]
 
     def __init__(self):
         self.parser = reqparse.RequestParser()

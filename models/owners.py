@@ -81,13 +81,10 @@ class Owners:
         for key, value in kwargs.items():
             params.append("{}=%s".format(key))
             values.append(value)
-        if kwargs.items():
-            exp = '''SELECT * FROM {table_name} WHERE {table_fields} = {values}'''.format(
+        if bool(kwargs.items()):
+            exp = '''SELECT * FROM {table_name} WHERE {params} ORDER BY id DESC'''.format(
                 table_name=cls.__name__.lower(),
-                table_fields=','.join([
-                    '{}'.format('phonenumber'),
-                ]),
-                values=','.join(['%s'])
+                params=' AND '.join(params),
             )
         else:
             exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(

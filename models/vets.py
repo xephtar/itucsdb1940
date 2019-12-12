@@ -73,10 +73,10 @@ class Vets:
         for key, value in kwargs.items():
             params.append("{}=%s".format(key))
             values.append(value)
-
-        if kwargs.items():
-            exp = '''SELECT * FROM {table_name} WHERE id=%s ORDER BY id ASC'''.format(
-                table_name=cls.__name__.lower()
+        if bool(kwargs.items()):
+            exp = '''SELECT * FROM {table_name} WHERE {params} ORDER BY id DESC'''.format(
+                table_name=cls.__name__.lower(),
+                params=' AND '.join(params),
             )
         else:
             exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
