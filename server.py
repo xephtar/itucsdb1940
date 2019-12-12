@@ -15,13 +15,21 @@ lm = LoginManager()
 
 @lm.user_loader
 def load_user(user_id):
-    user = get_user(user_id)
-    return user
+    if user_id is not None:
+        return get_user(user_id)
+    return None
 
 
 app = Flask(__name__, template_folder='template')
 app.secret_key = secrets.token_urlsafe(16)
 api = Api(app)
+
+
+@app.before_request
+def before_request():
+    user_id = current_user
+    print(user_id)
+
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
