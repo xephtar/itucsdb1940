@@ -5,7 +5,7 @@ from flask_login import logout_user, login_user
 from passlib.hash import pbkdf2_sha256 as hasher
 from flask import flash, url_for, redirect, request, render_template
 from views.users import get_user
-from passlib.apps import custom_app_context as pwd_context
+
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
