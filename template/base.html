@@ -9,10 +9,16 @@
 <body>
     <ul>
     <li><a href="{{ url_for('home_page') }}">Home</a></li>
-    <li><a href="{{ url_for('owner_register') }}">Owner Register</a></li>
-    <li><a href="{{ url_for('vet_register') }}">Vet Register</a></li>
+    {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('owner_register') }}">Owner Register</a></li>
+        <li><a href="{{ url_for('vet_register') }}">Vet Register</a></li>
+        <li><a href="{{ url_for('logout_page') }}">Log Out</a></li>
+    {% else %}
+        <li><a href="{{ url_for('login_page') }}">Log In</a></li>
+    {% endif %}
     </ul>
-    <div></div>
+    <div>
+    </div>
     <div>
 {% block content %}
     {% with messages = get_flashed_messages() %}
@@ -29,6 +35,7 @@
   {% endif %}
 {% endwith %}
     </div>
-    <div></div>
+    <div>
+    </div>
 </body>
 </html>
