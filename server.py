@@ -37,4 +37,4 @@ lm.init_app(app)
 lm.login_view = "login_page"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
