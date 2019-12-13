@@ -3,7 +3,7 @@ from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
 from flask_login import logout_user, login_user
 from passlib.hash import pbkdf2_sha256 as hasher
-from flask import flash, url_for, redirect, request, render_template
+from flask import flash, url_for, redirect, request, render_template, session
 from views.users import get_user
 
 
@@ -22,6 +22,7 @@ def login_page():
                 password = form.data["password"]
                 if hasher.verify(password, user.password):
                     login_user(user, remember=True)
+                    session["token"] = user.password
                     flash("You have logged in.")
                     next_page = request.args.get("next", url_for("home_page"))
                     return redirect(next_page)
@@ -34,4 +35,3 @@ def logout_page():
         logout_user()
         flash("You have logged out.")
         return redirect(url_for("home_page"))
-
