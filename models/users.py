@@ -3,11 +3,12 @@ from client.db_client import db_client
 
 
 class Users(UserMixin):
-    def __init__(self, username, password):
+    def __init__(self, id, username, password, active, is_admin):
+        self.id = id
         self.username = username
         self.password = password
-        self.active = True
-        self.is_admin = False
+        self.active = active
+        self.is_admin = is_admin
 
     def get_id(self):
         return self.username
@@ -34,9 +35,10 @@ class Users(UserMixin):
                 table_name=cls.__name__.lower()
             )
 
-        user = db_client.fetch(exp, values)
-        if user:
-            return user
+        rows = db_client.fetch(exp, values)
+        if rows:
+            objects = [cls(*row) for row in rows]
+            return objects
         else:
             return '{}'.format(404)
 
