@@ -1,8 +1,14 @@
-from flask import render_template
+from flask import render_template, request, flash, url_for, redirect
+
 from models.vets import Vets
 
 
 def owner_register():
+    headers = request.headers
+    cookie = headers.get("Cookie")
+    if not cookie.__contains__("remember_token"):
+        flash("You have not logged in!")
+        return home_page()
     qs = Vets.filter()
     if qs:
         _vets_list = [u.__dict__ for u in qs]
@@ -10,6 +16,11 @@ def owner_register():
 
 
 def vet_register():
+    headers = request.headers
+    cookie = headers.get("Cookie")
+    if not cookie.__contains__("remember_token"):
+        flash("You have not logged in!")
+        return home_page()
     return render_template('vet_register.html')
 
 
