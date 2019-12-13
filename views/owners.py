@@ -1,8 +1,9 @@
 from flask_login import login_required, current_user
 from flask_restful import reqparse, Resource, abort
-from flask import redirect, flash
+from flask import redirect, flash, session, request, url_for
 from models.owners import Owners
 from models.vets_to_owners import Vets_to_Owners
+from views.url import home_page
 
 
 class OwnersAPI(Resource):
@@ -76,6 +77,6 @@ class OwnersListAPI(Resource):
                 flash('You were failed to add Vet!')
             else:
                 flash('You were successfully added Vet!')
-
-            return redirect('/')
+            next_page = request.args.get("next", url_for("home_page"))
+            return redirect(next_page)
         return {}, 404
