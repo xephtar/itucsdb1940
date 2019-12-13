@@ -16,7 +16,6 @@ lm = LoginManager()
 def load_user(user_id):
     if not session.get("token") is None:
         return get_user(session.get("user_id"))
-
     if user_id is not None:
         return get_user(user_id)
     return None
@@ -34,6 +33,13 @@ def before_request():
     user = current_user
 
 
+
+@app.before_request
+def before_request():
+    user_id = current_user
+    print(user_id)
+
+
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
 api.add_resource(OwnersAPI, '/owners/<phonenumber>')
@@ -45,3 +51,4 @@ app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
 app.add_url_rule("/logout", view_func=logout_page, methods=["GET"])
 
 if __name__ == '__main__':
+    app.run(debug=False)
