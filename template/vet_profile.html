@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Vet Profile{% endblock %}
+{% block content %}
+    {% if vet %}
+    <h1>{{ vet.id }}</h1><br>
+    <h1>{{ vet.name }}</h1><br>
+    <h1>{{ vet.age }}</h1>
+
+    {% endif %}
+{% endblock %}

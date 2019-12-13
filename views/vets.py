@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 from flask_restful import reqparse, Resource
-from flask import redirect, abort, session
+from flask import redirect, abort
 from models.vets import Vets
 
 
@@ -15,7 +15,8 @@ class VetsAPI(Resource):
     def get(self, id):
         u = Vets.get(id=id)
         if u:
-            return u.__dict__
+            vet = u.__dict__
+            return vet
         return {}, 404
 
     def put(self, id):

@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_restful import Api
-
 from models.users import Users
 from views.vets import VetsAPI, VetsListAPI
 from views.owners import OwnersAPI, OwnersListAPI
-from views.url import owner_register, vet_register, home_page
+from views.url import owner_register, vet_register, home_page, vet_profile
 import secrets
 from flask_login import LoginManager, current_user
 from views.login import login_page, logout_page
@@ -39,6 +38,7 @@ api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
 api.add_resource(OwnersAPI, '/owners/<phonenumber>')
 api.add_resource(OwnersListAPI, '/owners/')
+app.add_url_rule("/profile/<int:id>", view_func=vet_profile, methods=["GET"])
 app.add_url_rule("/owner_register/", view_func=owner_register, methods=["GET"])
 app.add_url_rule("/vet_register/", view_func=vet_register, methods=["GET"])
 app.add_url_rule("/", view_func=home_page)
