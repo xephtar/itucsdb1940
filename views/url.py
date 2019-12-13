@@ -1,5 +1,4 @@
 from flask import render_template, request, flash, url_for, redirect
-
 from models.vets import Vets
 
 
@@ -22,6 +21,11 @@ def vet_register():
         flash("You have not logged in!")
         return home_page()
     return render_template('vet_register.html')
+
+
+def vet_profile(id):
+    v = Vets.get(id=id)
+    return render_template('vet_profile.html', vet=v)
 
 
 def home_page():
