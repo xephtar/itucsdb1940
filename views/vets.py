@@ -50,7 +50,6 @@ class VetsListAPI(Resource):
 
     def get(self):
         if current_user.is_admin:
-            print(session)
             qs = Vets.filter()
             if qs:
                 r = [u.__dict__ for u in qs]
