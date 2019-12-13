@@ -17,7 +17,7 @@ lm = LoginManager()
 def load_user(user_id):
     reg_user = Users.get(username=user_id)
     if reg_user:
-        if user_id == Users.get_id(reg_user):
+        if user_id == reg_user.get_id():
             return reg_user
     return None
 
