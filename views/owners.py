@@ -1,5 +1,5 @@
-from flask_login import login_required
-from flask_restful import reqparse, Resource
+from flask_login import login_required, current_user
+from flask_restful import reqparse, Resource, abort
 from flask import redirect, flash
 from models.owners import Owners
 from models.vets_to_owners import Vets_to_Owners
@@ -21,19 +21,25 @@ class OwnersAPI(Resource):
         return {}, 404
 
     def put(self, phonenumber):
-        args = self.parser.parse_args()
-        u = Owners.get(phonenumber=phonenumber)
-        if u and args:
-            u.update(**args)
-            return u.__dict__
+        if current_user.is_admin:
+            args = self.parser.parse_args()
+            u = Owners.get(phonenumber=phonenumber)
+            if u and args:
+                u.update(**args)
+                return u.__dict__
+        else:
+            abort(403)
         return {}, 404
 
     def delete(self, id):
-        u = Owners.get(id=id)
-        if u:
-            r = u.__dict__
-            u.delete()
-            return r, 200
+        if current_user.is_admin:
+            u = Owners.get(id=id)
+            if u:
+                r = u.__dict__
+                u.delete()
+                return r, 200
+        else:
+            abort(403)
 
 
 class OwnersListAPI(Resource):

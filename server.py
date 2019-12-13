@@ -1,6 +1,7 @@
-from flask import Flask, session, request, flash
+from flask import Flask
 from flask_restful import Api
-from views.users import get_user
+
+from models.users import Users
 from views.vets import VetsAPI, VetsListAPI
 from views.owners import OwnersAPI, OwnersListAPI
 from views.url import owner_register, vet_register, home_page
@@ -14,15 +15,10 @@ lm = LoginManager()
 
 @lm.user_loader
 def load_user(user_id):
-    headers = request.headers
-    cookie = headers.get("Cookie")
-    if cookie.__contains__("remember_token"):
-        return get_user(user_id)
-    elif not cookie.__contains__("remember_token"):
-        flash("You have not logged in!")
-        return home_page()
-    if user_id is not None:
-        return get_user(user_id)
+    reg_user = Users.get(username=user_id)
+    if reg_user:
+        if user_id == Users.get_id(reg_user):
+            return reg_user
     return None
 
 
@@ -50,4 +46,3 @@ app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
 app.add_url_rule("/logout", view_func=logout_page, methods=["GET"])
 
 if __name__ == '__main__':
-    app.run(debug=False)
