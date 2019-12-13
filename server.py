@@ -50,3 +50,4 @@ app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
 app.add_url_rule("/logout", view_func=logout_page, methods=["GET"])
 
 if __name__ == '__main__':
+    app.run(debug=True)
