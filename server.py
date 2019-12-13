@@ -1,4 +1,4 @@
-from flask import Flask, session, request
+from flask import Flask, session, request, flash
 from flask_restful import Api
 from views.users import get_user
 from views.vets import VetsAPI, VetsListAPI
@@ -14,8 +14,13 @@ lm = LoginManager()
 
 @lm.user_loader
 def load_user(user_id):
-    if not session.get("token") is None:
-        return get_user(session.get("user_id"))
+    headers = request.headers
+    cookie = headers.get("Cookie")
+    if cookie.__contains__("remember_token"):
+        return get_user(user_id)
+    elif not cookie.__contains__("remember_token"):
+        flash("You have not logged in!")
+        return home_page()
     if user_id is not None:
         return get_user(user_id)
     return None
@@ -23,6 +28,7 @@ def load_user(user_id):
 
 app = Flask(__name__, template_folder='template')
 app.secret_key = secrets.token_urlsafe(16)
+app.url_map.strict_slashes = False
 api = Api(app)
 lm.init_app(app)
 lm.login_view = "login_page"
@@ -31,13 +37,6 @@ lm.login_view = "login_page"
 @app.before_request
 def before_request():
     user = current_user
-
-
-
-@app.before_request
-def before_request():
-    user_id = current_user
-    print(user_id)
 
 
 api.add_resource(VetsAPI, '/vets/<int:id>')

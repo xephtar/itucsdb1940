@@ -9,7 +9,7 @@
 <body>
     <ul>
     <li><a href="{{ url_for('home_page') }}">Home</a></li>
-    {% if current_user.is_authenticated %}
+    {% if request.cookies.get('remember_token') %}
         <li><a href="{{ url_for('owner_register') }}">Owner Register</a></li>
         <li><a href="{{ url_for('vet_register') }}">Vet Register</a></li>
         <li><a href="{{ url_for('logout_page') }}">Log Out</a></li>
