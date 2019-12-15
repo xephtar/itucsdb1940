@@ -49,19 +49,10 @@ class Vets:
         return self
 
     def delete(self, **kwargs):
-        set_params = []
-        set_values = []
-
-        for key, value in kwargs.items():
-            set_params.append("{}=%s".format(key))
-            set_values.append(value)
-
-        exp = '''DELETE FROM {table_name} WHERE {filter} AND id=%s'''.format(
+        exp = '''DELETE FROM {table_name} WHERE id=%s'''.format(
             table_name=self.__class__.__name__.lower(),
-            filter=','.join(set_params),
         )
-        set_values.append(self.id)
-        db_client.query(exp, set_values)
+        db_client.query(exp, self.id)
         self.__dict__.update(**kwargs)
         return self
     
