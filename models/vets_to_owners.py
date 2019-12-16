@@ -1,6 +1,4 @@
 from client.db_client import db_client
-from models.vets import Vets
-from models.owners import Owners
 
 
 class Vets_to_Owners:

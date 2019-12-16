@@ -1,14 +1,65 @@
 from flask_login import UserMixin
 from client.db_client import db_client
+from passlib.hash import pbkdf2_sha256 as hasher
 
 
 class Users(UserMixin):
-    def __init__(self, id, username, password, active, is_admin):
+    sql_fields = [
+        "id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass)",
+        'username character varying COLLATE pg_catalog."default" NOT NULL',
+        'password character varying COLLATE pg_catalog."default" NOT NULL',
+        'is_admin boolean',
+        'active boolean',
+        'CONSTRAINT users_pkey PRIMARY KEY (id, username)'
+    ]
+
+    sql_field_number = len(sql_fields)
+
+    def __init__(self, id=None, username=None, password=None, is_admin=None, active=None):
         self.id = id
         self.username = username
         self.password = password
-        self.active = active
-        self.is_admin = is_admin
+        self.active = is_admin
+        self.is_admin = active
+
+        exp = '''CREATE TABLE IF NOT EXISTS {table_name} ({fields})'''.format(
+            table_name=self.__class__.__name__.lower(),
+            fields=','.join(self.sql_fields))
+        db_client.query(exp)
+
+    def save(self):
+        if self.id:
+            update_set = ','.join([
+                "{key}=%s".format(key='username'),
+                "{key}=%s".format(key='password'),
+                "{key}=%s".format(key='is_admin'),
+                "{key}=%s".format(key='active')
+            ])
+            exp = '''UPDATE {table_name} SET {values} WHERE id=%s RETURNING id'''.format(
+                table_name=self.__class__.__name__.lower(),
+                values=update_set,
+            )
+            self.id = db_client.fetch(exp, (self.username, self.password,
+                                            self.is_admin, self.active,
+                                            self.id))[0][0]
+        else:
+            exp = '''INSERT INTO {table_name} ({table_fields}) VALUES ({values})'''.format(
+                table_name=self.__class__.__name__.lower(),
+                table_fields=','.join([
+                    '{}'.format('username'),
+                    '{}'.format('password'),
+                    '{}'.format('is_admin'),
+                    '{}'.format('active'),
+                ]),
+                values=','.join(['%s', '%s', '%s', '%s'])
+            )
+            self.password = hasher.hash(self.password)
+            self.active = True
+            c = db_client.create(exp, (self.username, self.password, self.is_admin, self.active))
+            if c:
+                return {}, 404
+
+        return self
 
     def get_id(self):
         return self.username
@@ -40,8 +91,13 @@ class Users(UserMixin):
             objects = [cls(*row) for row in rows]
             return objects
         else:
-            return '{}'.format(404)
+            return {}, 404
 
     @classmethod
     def get(cls, **kwargs):
         return cls.filter(**kwargs).__getitem__(0)
+
+    @classmethod
+    def create(cls, **kwargs):
+        obj = cls(**kwargs)
+        return obj.save()

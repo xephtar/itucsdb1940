@@ -5,8 +5,8 @@ from views.vets import VetsAPI, VetsListAPI
 from views.owners import OwnersAPI, OwnersListAPI
 from views.url import owner_register, vet_register, home_page, vet_profile, vet_profiles, owner_profile, owner_profiles
 import secrets
-from flask_login import LoginManager, current_user
-from views.login import login_page, logout_page
+from flask_login import LoginManager, confirm_login
+from views.login import login_page, logout_page, register_page
 
 
 lm = LoginManager()
@@ -31,7 +31,7 @@ lm.login_view = "login_page"
 
 @app.before_request
 def before_request():
-    user = current_user
+    confirm_login()
 
 
 api.add_resource(VetsAPI, '/vets/<int:id>')
@@ -46,7 +46,8 @@ app.add_url_rule("/owner_register/", view_func=owner_register, methods=["GET"])
 app.add_url_rule("/vet_register/", view_func=vet_register, methods=["GET"])
 app.add_url_rule("/", view_func=home_page)
 app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
+app.add_url_rule("/register", view_func=register_page, methods=["GET", "POST"])
 app.add_url_rule("/logout", view_func=logout_page, methods=["GET"])
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

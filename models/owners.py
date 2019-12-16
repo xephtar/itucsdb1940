@@ -1,5 +1,3 @@
-from flask_restful import abort
-
 from client.db_client import db_client
 
 
