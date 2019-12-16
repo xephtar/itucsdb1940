@@ -6,6 +6,7 @@
             <form action="{{ url_for('ownersapi', phonenumber = owner.phonenumber) }}" method="post">
                 <label for="name">Name</label><br>
                 <input type="text" name="name" id="name" required="required" value="{{ owner.name }}"><br>
+                <label for="age">Age</label><br>
                 <select id="age" name="age" required="required">
                 {% for opt in range(13,81) %}
                     <option value="{{ opt }}" {% if owner.age == opt %} selected="selected"{% endif %}>{{ opt }}</option>

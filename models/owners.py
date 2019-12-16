@@ -117,7 +117,7 @@ class Owners:
                 params=' AND '.join(params),
             )
         else:
-            exp = '''SELECT * FROM {table_name} ORDER BY id ASC'''.format(
+            exp = '''SELECT * FROM {table_name} ORDER BY name'''.format(
                 table_name=cls.__name__.lower()
             )
 
