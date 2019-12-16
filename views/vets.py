@@ -11,6 +11,9 @@ class VetsAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=str)
+        self.parser.add_argument('address', type=str)
+        self.parser.add_argument('profession', type=str)
+        self.parser.add_argument('gender', type=str)
 
     def get(self, id):
         u = Vets.get(id=id)
@@ -48,6 +51,9 @@ class VetsListAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=str)
+        self.parser.add_argument('address', type=str)
+        self.parser.add_argument('gender', type=str)
+        self.parser.add_argument('profession', type=str)
 
     def get(self):
         if current_user.is_admin:
@@ -65,5 +71,5 @@ class VetsListAPI(Resource):
             u = Vets.create(**args)
             if u:
                 vet = Vets.filter(**args).__getitem__(0)
-                return redirect('/vets/{}'.format(vet.id))
+                return redirect('/profile/{}'.format(vet.id))
         return {}, 404

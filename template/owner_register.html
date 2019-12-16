@@ -11,6 +11,14 @@
                 <input type="number" name="age" id="age" maxlength="2" size="2" required="required"><br>
                 <label for="phonenumber">Phone Number</label><br>
                 <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required="required"><br>
+                <label for="address">Address</label><br>
+                <input type="text" name="address" id="address" required="required"><br>
+                <label for="gender">Gender</label><br>
+                 <input type="radio" name="gender" id="gender" value="male" checked> Male<br>
+                 <input type="radio" name="gender" id="gender" value="female"> Female<br>
+                 <input type="radio" name="gender" id="gender" value="other"> Other<br>
+                <label for="treatments">Treatments</label><br>
+                <input type="text" name="treatments" id="treatments" required="required"><br>
             <label for="vet_id">Vets</label><br>
             <select id="vet_id" name="vet_id">
               {% for vet in vets_list %}

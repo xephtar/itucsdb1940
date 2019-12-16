@@ -13,12 +13,12 @@ class OwnersAPI(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('age', type=str)
-        self.parser.add_argument('phonenumber', type=str)
 
     def get(self, phonenumber):
         u = Owners.get(phonenumber=phonenumber)
         if u:
-            return u.__dict__
+            owner = u.__dict__
+            return owner
         return {}, 404
 
     def put(self, phonenumber):
@@ -32,9 +32,9 @@ class OwnersAPI(Resource):
             abort(403)
         return {}, 404
 
-    def delete(self, id):
+    def delete(self, phonenumber):
         if current_user.is_admin:
-            u = Owners.get(id=id)
+            u = Owners.get(phonenumber=phonenumber)
             if u:
                 r = u.__dict__
                 u.delete()
@@ -51,6 +51,9 @@ class OwnersListAPI(Resource):
         self.parser.add_argument('age', type=str)
         self.parser.add_argument('name', type=str)
         self.parser.add_argument('phonenumber', type=str)
+        self.parser.add_argument('gender', type=str)
+        self.parser.add_argument('address', type=str)
+        self.parser.add_argument('treatments', type=str)
 
     def get(self):
         qs = Owners.filter()
@@ -61,22 +64,31 @@ class OwnersListAPI(Resource):
 
     def post(self):
         args = self.parser.parse_args()
-        vet = reqparse.RequestParser()
-        vet.add_argument('phonenumber', type=str)
-        vet.add_argument('vet_id', type=int)
-        vet = vet.parse_args()
         if args:
             u = Owners.create(**args)
-            ovr = Vets_to_Owners.create(**vet)
-            if u == '404':
-                flash('You were failed to create Owner!')
-            else:
-                flash('You were successfully created Owner!')
-
-            if ovr == '404':
-                flash('You were failed to add Vet!')
-            else:
-                flash('You were successfully added Vet!')
-            next_page = request.args.get("next", url_for("home_page"))
-            return redirect(next_page)
+            if u:
+                owner = Owners.filter(**args).__getitem__(0)
+                return redirect('/owners/{}'.format(owner.phonenumber))
         return {}, 404
+        # args = self.parser.parse_args()
+        # vet = reqparse.RequestParser()
+        # vet.add_argument('phonenumber', type=str)
+        # vet.add_argument('vet_id', type=int)
+        # vet = vet.parse_args()
+        # print(args)
+        # print(vet)
+        # if args:
+        #     u = Owners.create(**args)
+        #     ovr = Vets_to_Owners.create(**vet)
+        #     if u == '404':
+        #         flash('You were failed to create Owner!')
+        #     else:
+        #         flash('You were successfully created Owner!')
+        #
+        #     if ovr == '404':
+        #         flash('You were failed to add Vet!')
+        #     else:
+        #         flash('You were successfully added Vet!')
+        #     next_page = request.args.get("next", url_for("home_page"))
+        #     return redirect(next_page)
+        # return {}, 404
