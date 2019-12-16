@@ -57,7 +57,10 @@ class Vets:
                 values=','.join(['%s', '%s', '%s', '%s', '%s'])
             )
 
-            db_client.create(exp, (self.name, self.age, self.address, self.profession, self.gender))
+            c = db_client.create(exp, (self.name, self.age, self.address, self.profession, self.gender))
+            if c:
+                return {}, 404
+
         return self
 
     def delete(self, **kwargs):

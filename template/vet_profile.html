@@ -2,9 +2,35 @@
 {% block title %}Vet Profile{% endblock %}
 {% block content %}
     {% if vet %}
-    <h1>{{ vet.id }}</h1><br>
-    <h1>{{ vet.name }}</h1><br>
-    <h1>{{ vet.age }}</h1>
-
+     <label>
+            <form action="{{ url_for('vetsapi', id = vet.id) }}" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="name" required="required" value="{{ vet.name }}"><br>
+                <label for="age">Age</label><br>
+                <select id="age" name="age" required="required">
+                {% for opt in range(13,81) %}
+                    <option value="{{ opt }}" {% if vet.age == opt %} selected="selected"{% endif %}>{{ opt }}</option>
+                {% endfor %}
+                </select><br>
+               <label for="address">Address</label><br>
+                <input type="text" name="address" id="address" required="required" value="{{ vet.address }}"><br>
+                <label for="gender">Gender</label><br>
+                <select id="gender" name="gender">
+                {% for opt in ['Male', 'Female', 'Other'] %}
+                    <option value="{{ opt }}" {% if vet.gender == opt %} selected="selected"{% endif %}>{{ opt }}</option>
+                {% endfor %}
+                </select><br>
+                <label for="profession">Profession</label><br>
+                <select id="profession" name="profession">
+                {% for opt in ['Pet', 'Other'] %}
+                    <option value="{{ opt }}" {% if vet.profession == opt %} selected="selected"{% endif %}>{{ opt }}</option>
+                {% endfor %}
+                </select><br>
+            <input type="submit" name="_method" value="Update">
+            </form>
+            <form action="{{ url_for('vetsapi', id = vet.id) }}" method="post">
+                <input type="submit" style="background-color: red" name="_method" value="Delete">
+            </form>
+        </label>
     {% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 from flask_restful import reqparse, Resource
-from flask import redirect, abort
+from flask import redirect, abort, flash, request, url_for
 from models.vets import Vets
 
 
@@ -14,6 +14,27 @@ class VetsAPI(Resource):
         self.parser.add_argument('address', type=str)
         self.parser.add_argument('profession', type=str)
         self.parser.add_argument('gender', type=str)
+
+    def post(self, id):
+        method = reqparse.RequestParser()
+        method.add_argument('_method', type=str)
+        method = method.parse_args()
+        if method['_method'] == "Delete":
+            if VetsAPI.delete(self, id):
+                flash("Success, Vet is deleted!")
+            else:
+                flash("Fail, Vet is not deleted!")
+            next_page = request.args.get("next", url_for("home_page"))
+            return redirect(next_page)
+        elif method['_method'] == "Update":
+            if VetsAPI.put(self, id):
+                flash("Success, Vet is updated!")
+            else:
+                flash("Fail, Vet is not updated!")
+            next_page = request.args.get("next", url_for("home_page"))
+            return redirect(next_page)
+        else:
+            abort(405)
 
     def get(self, id):
         u = Vets.get(id=id)
@@ -68,8 +89,14 @@ class VetsListAPI(Resource):
     def post(self):
         args = self.parser.parse_args()
         if args:
-            u = Vets.create(**args)
-            if u:
+            if Vets.create(**args):
                 vet = Vets.filter(**args).__getitem__(0)
-                return redirect('/profile/{}'.format(vet.id))
+                flash('You were successfully created Vet!')
+                flash(vet.name)
+                next_page = request.args.get("next", url_for("home_page"))
+                return redirect(next_page)
+            else:
+                flash('You were failed to create Vet!')
+                next_page = request.args.get("next", url_for("home_page"))
+                return redirect(next_page)
         return {}, 404

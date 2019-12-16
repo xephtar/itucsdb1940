@@ -7,16 +7,20 @@
 <link rel="icon" href="{{ url_for('static', filename='image/icon.png') }}">
 </head>
 <body>
+    <div class="nav-bar">
     <ul>
     <li><a href="{{ url_for('home_page') }}">Home</a></li>
     {% if request.cookies.get('remember_token') %}
         <li><a href="{{ url_for('owner_register') }}">Owner Register</a></li>
         <li><a href="{{ url_for('vet_register') }}">Vet Register</a></li>
+        <li><a href="{{ url_for('owner_profiles') }}">Owner Profiles</a></li>
+        <li><a href="{{ url_for('vet_profiles') }}">Vet Profiles</a></li>
         <li><a href="{{ url_for('logout_page') }}">Log Out</a></li>
     {% else %}
         <li><a href="{{ url_for('login_page') }}">Log In</a></li>
     {% endif %}
     </ul>
+    </div>
     <div>
     </div>
     <div>
