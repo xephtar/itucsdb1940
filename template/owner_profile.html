@@ -11,8 +11,6 @@
                     <option value="{{ opt }}" {% if owner.age == opt %} selected="selected"{% endif %}>{{ opt }}</option>
                 {% endfor %}
                 </select><br>
-                <label for="phonenumber">Phone Number</label><br>
-                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required="required" value="{{ owner.phonenumber }}"><br>
                <label for="address">Address</label><br>
                 <input type="text" name="address" id="address" required="required" value="{{ owner.address }}"><br>
                 <label for="gender">Gender</label><br>
