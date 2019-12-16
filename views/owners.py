@@ -93,8 +93,6 @@ class OwnersListAPI(Resource):
                 next_page = request.args.get("next", url_for("home_page"))
                 return redirect(next_page)
             else:
-                owner = Owners.filter(**args).__getitem__(0)
-                print(owner)
                 flash('You were successfully created Owner!')
                 next_page = request.args.get("next", url_for("home_page"))
                 return redirect(next_page)

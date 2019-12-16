@@ -10,18 +10,18 @@ class Vets_to_Owners:
         REFERENCES public.owners(phonenumber) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
-        NOT VALID''',
+        ''',
         '''CONSTRAINT vet_id_fkey FOREIGN KEY(vet_id)
         REFERENCES public.vets(id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
-        NOT VALID'''
+        '''
     ]
 
     sql_field_number = len(sql_fields)
 
-    def __init__(self, phonenumber=None, vet_id=None):
-        self.phonenumber = phonenumber
+    def __init__(self, owner_phone=None, vet_id=None):
+        self.owner_phone = owner_phone
         self.vet_id = vet_id
 
         exp = '''CREATE TABLE IF NOT EXISTS {table_name} ({fields})'''.format(
@@ -39,9 +39,11 @@ class Vets_to_Owners:
             ]),
             values=','.join(['%s', '%s'])
         )
-        c = db_client.create(exp_relation_table, (self.phonenumber, self.vet_id))
+        print(self.owner_phone)
+        print(self.vet_id)
+        c = db_client.create(exp_relation_table, (self.owner_phone, self.vet_id))
         if c:
-            return '{}'.format(404)
+            return {}, 404
         return self
 
     @classmethod
@@ -52,17 +54,13 @@ class Vets_to_Owners:
         for key, value in kwargs.items():
             params.append("{}=%s".format(key))
             values.append(value)
-
         if bool(kwargs.items()):
-            exp = '''SELECT * FROM {table_name} WHERE {table_fields} = {values}'''.format(
+            exp = '''SELECT * FROM {table_name} WHERE {params} ORDER BY vet_id DESC'''.format(
                 table_name=cls.__name__.lower(),
-                table_fields=','.join([
-                    '{}'.format('owner_phone'),
-                ]),
-                values=','.join(['%s'])
+                params=' AND '.join(params),
             )
         else:
-            exp = '''SELECT * FROM {table_name} ORDER BY vet_id ASC'''.format(
+            exp = '''SELECT * FROM {table_name} ORDER BY vet_id'''.format(
                 table_name=cls.__name__.lower()
             )
 
@@ -71,11 +69,11 @@ class Vets_to_Owners:
             objects = [cls(*row) for row in rows]
             return objects
         else:
-            return '{}'.format(404)
+            return {}, 404
 
     @classmethod
     def get(cls, **kwargs):
-        return cls.filter(**kwargs).__getitem__(0)
+        return cls.filter(**kwargs)
 
     @classmethod
     def create(cls, **kwargs):

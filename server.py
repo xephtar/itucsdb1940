@@ -2,8 +2,9 @@ from flask import Flask
 from flask_restful import Api
 from models.users import Users
 from views.vets import VetsAPI, VetsListAPI
+from views.vets_to_owners import VetsOwnersList, VetsOwners
 from views.owners import OwnersAPI, OwnersListAPI
-from views.url import owner_register, vet_register, home_page, vet_profile, vet_profiles, owner_profile, owner_profiles
+from views.url import owner_register, vet_register, home_page, vet_profile, vet_profiles, owner_profile, owner_profiles, relations
 import secrets
 from flask_login import LoginManager, confirm_login
 from views.login import login_page, logout_page, register_page
@@ -34,10 +35,13 @@ def before_request():
     confirm_login()
 
 
+api.add_resource(VetsOwners, '/relation/<int:vet_id>')
+api.add_resource(VetsOwnersList, '/relation/')
 api.add_resource(VetsAPI, '/vets/<int:id>')
 api.add_resource(VetsListAPI, '/vets/')
 api.add_resource(OwnersAPI, '/owners/<phonenumber>')
 api.add_resource(OwnersListAPI, '/owners/')
+app.add_url_rule("/profile/relations/", view_func=relations, methods=["GET"])
 app.add_url_rule("/profile/vet/<int:id>", view_func=vet_profile, methods=["GET"])
 app.add_url_rule("/profile/vets/", view_func=vet_profiles, methods=["GET"])
 app.add_url_rule("/profile/owner/<phonenumber>", view_func=owner_profile, methods=["GET"])
@@ -50,4 +54,4 @@ app.add_url_rule("/register", view_func=register_page, methods=["GET", "POST"])
 app.add_url_rule("/logout", view_func=logout_page, methods=["GET"])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

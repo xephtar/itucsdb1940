@@ -15,14 +15,13 @@
         <li><a href="{{ url_for('vet_register') }}">Vet Register</a></li>
         <li><a href="{{ url_for('owner_profiles') }}">Owner Profiles</a></li>
         <li><a href="{{ url_for('vet_profiles') }}">Vet Profiles</a></li>
+        <li><a href="{{ url_for('relations') }}">Relations</a></li>
         <li><a href="{{ url_for('logout_page') }}">Log Out</a></li>
     {% else %}
         <li><a href="{{ url_for('login_page') }}">Log In</a></li>
         <li><a href="{{ url_for('register_page') }}">Sign Up</a></li>
     {% endif %}
     </ul>
-    </div>
-    <div>
     </div>
     <div>
 {% block content %}
@@ -39,8 +38,6 @@
     {% endfor %}
   {% endif %}
 {% endwith %}
-    </div>
-    <div>
     </div>
 </body>
 </html>

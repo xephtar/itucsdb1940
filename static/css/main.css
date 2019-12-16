@@ -101,7 +101,7 @@ body {
  .responsive-table .col-4 {
 	 flex-basis: 25%;
 }
- @media all and (max-width: 767px) {
+ @media all and (max-width: 1980px) {
 	 .responsive-table .table-header {
 		 display: none;
 	}

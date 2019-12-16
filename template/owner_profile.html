@@ -29,4 +29,17 @@
             </form>
         </label>
     {% endif %}
+    <label> Add Vet To Owner</label>
+    <form action="{{ url_for('vetsownerslist')}}" method="post">
+    {% if vet_list %}
+        <label for="vet_id"> Vets</label>
+        <select id="vet_id" name="vet_id">
+        {% for vet in vet_list %}
+            <option value="{{ vet.id }}">{{ vet.name }}</option>
+        {% endfor %}
+        </select><br>
+    {% endif %}
+        <input type="hidden" id="owner_phone" name="owner_phone" value="{{ owner.phonenumber }}" >
+        <input type="submit" value="Add">
+    </form>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Relations{% endblock %}
+{% block content %}
+    {% if relations %}
+        <div class="container">
+            <h2>Relations<small> order by vet id</small></h2>
+            <ul class="responsive-table">
+            <li class="table-header">
+              <div class="col col-1">Vet Id</div>
+              <div class="col col-1">Owner Phonenumber</div>
+            </li>
+            {% for relation in relations %}
+            <li class="table-row">
+              <div class="col col-1" data-label="vet_id">{{ relation.vet_id }}</div>
+              <div class="col col-1" data-label="owner_phone">{{ relation.owner_phone }}</div>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

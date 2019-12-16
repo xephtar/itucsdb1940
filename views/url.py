@@ -1,7 +1,8 @@
-from flask import render_template, request, flash, url_for, redirect
+from flask import render_template, request, flash
 
 from models.owners import Owners
 from models.vets import Vets
+from models.vets_to_owners import Vets_to_Owners
 
 
 def owner_register():
@@ -32,9 +33,15 @@ def vet_profiles():
     return render_template('vet_profiles.html', vets=v)
 
 
+def relations():
+    r = Vets_to_Owners.filter()
+    return render_template('relations.html', relations=r)
+
+
 def owner_profile(phonenumber):
     o = Owners.get(phonenumber=phonenumber)
-    return render_template('owner_profile.html', owner=o)
+    _vets = Vets.filter()
+    return render_template('owner_profile.html', owner=o, vet_list=_vets)
 
 
 def owner_profiles():
