@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Vet Profile{% endblock %}
+{% block content %}
+    {% if vets %}
+        <div class="container">
+            <h2>Vets<small> ordered by id</small></h2>
+            <ul class="responsive-table">
+            <li class="table-header">
+              <div class="col col-1">Id</div>
+              <div class="col col-1">Name</div>
+              <div class="col col-1">Age</div>
+              <div class="col col-1">Profession</div>
+              <div class="col col-4">Address</div>
+              <div class="col col-1">Gender</div>
+            </li>
+            {% for vet in vets %}
+            <li class="table-row">
+              <div class="col col-1" data-label="id"><a href="{{ url_for('vet_profile', id = vet.id) }}">{{ vet.id }}</a></div>
+              <div class="col col-1" data-label="name">{{ vet.name }}</div>
+              <div class="col col-1" data-label="age">{{ vet.age }}</div>
+              <div class="col col-1" data-label="profession">{{ vet.profession }}</div>
+              <div class="col col-4" data-label="address">{{ vet.address }}</div>
+              <div class="col col-1" data-label="gender">{{ vet.gender }}</div>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

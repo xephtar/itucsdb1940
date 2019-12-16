@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Owner Profile{% endblock %}
+{% block content %}
+    {% if owner %}
+     <label>
+            <form action="{{ url_for('ownersapi', phonenumber = owner.phonenumber) }}" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="name" required="required" value="{{ owner.name }}"><br>
+                <select id="age" name="age" required="required">
+                {% for opt in range(13,81) %}
+                    <option value="{{ opt }}" {% if owner.age == opt %} selected="selected"{% endif %}>{{ opt }}</option>
+                {% endfor %}
+                </select><br>
+                <label for="phonenumber">Phone Number</label><br>
+                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required="required" value="{{ owner.phonenumber }}"><br>
+               <label for="address">Address</label><br>
+                <input type="text" name="address" id="address" required="required" value="{{ owner.address }}"><br>
+                <label for="gender">Gender</label><br>
+                <select id="gender" name="gender">
+                {% for opt in ['Male', 'Female', 'Other'] %}
+                    <option value="{{ opt }}" {% if owner.gender == opt %} selected="selected"{% endif %}>{{ opt }}</option>
+                {% endfor %}
+                </select><br>
+                <label for="treatments">Treatments</label><br>
+                <input type="text" name="treatments" id="treatments" required="required" value="{{ owner.treatments }}"><br>
+            <input type="submit" name="_method" value="Update">
+            </form>
+            <form action="{{ url_for('ownersapi', phonenumber = owner.phonenumber) }}" method="post">
+                <input type="submit" style="background-color: red" name="_method" value="Delete">
+            </form>
+        </label>
+    {% endif %}
+{% endblock %}

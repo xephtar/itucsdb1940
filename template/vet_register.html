@@ -6,17 +6,26 @@
             <form action="{{ url_for('vetslistapi') }}" method="post">
                 <label for="name">Name</label><br>
                 <input type="text" name="name" id="name" required="required"><br>
-                <label for="name">Age</label><br>
-                <input type="number" name="age" id="age" maxlength="2" size="2" required="required"><br>
+                <label for="age">Age</label><br>
+                <select id="age" name="age" required="required">
+                {% for opt in range(13,81) %}
+                    <option value="{{ opt }}" >{{ opt }}</option>
+                {% endfor %}
+                </select><br>
                <label for="address">Address</label><br>
                 <input type="text" name="address" id="address" required="required"><br>
-                <label for="gender">Gender</label><br>
-                 <input type="radio" name="gender" id="gender" value="male" checked> Male<br>
-                 <input type="radio" name="gender" id="gender" value="female"> Female<br>
-                 <input type="radio" name="gender" id="gender" value="other"> Other<br>
+               <label for="gender">Gender</label><br>
+                <select id="gender" name="gender" required="required">
+                {% for opt in ['Male', 'Female', 'Other'] %}
+                    <option value="{{ opt }}" >{{ opt }}</option>
+                {% endfor %}
+                </select><br>
                 <label for="profession">Profession</label><br>
-                <input type="radio" name="profession" id="profession" value="pet" checked> Pet<br>
-                 <input type="radio" name="profession" id="profession" value="other"> Other<br>
+                <select id="profession" name="profession" required="required">
+                {% for opt in ['Pet', 'Other'] %}
+                    <option value="{{ opt }}" >{{ opt }}</option>
+                {% endfor %}
+                </select><br>
             <input type="submit" value="submit">
             </form>
         </label>
