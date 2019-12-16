@@ -88,14 +88,14 @@ class OwnersListAPI(Resource):
         args = self.parser.parse_args()
         if args:
             u = Owners.create(**args)
-            if u is Owners:
-                owner = Owners.filter(**args).__getitem__(0)
-                flash('You were successfully created Owner!')
-                flash(owner.name)
+            if type(u) is str:
+                flash(u)
                 next_page = request.args.get("next", url_for("home_page"))
                 return redirect(next_page)
             else:
-                flash('You were failed to create Owner!')
+                owner = Owners.filter(**args).__getitem__(0)
+                print(owner)
+                flash('You were successfully created Owner!')
                 next_page = request.args.get("next", url_for("home_page"))
                 return redirect(next_page)
         return {}, 404

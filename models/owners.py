@@ -1,3 +1,5 @@
+from flask_restful import abort
+
 from client.db_client import db_client
 
 
@@ -64,7 +66,7 @@ class Owners:
             )
             c = db_client.create(exp, (self.age, self.name, self.phonenumber, self.address, self.gender, self.treatments))
             if c:
-                return {}, 404
+                return c
 
         return self
 

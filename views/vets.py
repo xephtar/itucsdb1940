@@ -92,7 +92,6 @@ class VetsListAPI(Resource):
             if Vets.create(**args):
                 vet = Vets.filter(**args).__getitem__(0)
                 flash('You were successfully created Vet!')
-                flash(vet.name)
                 next_page = request.args.get("next", url_for("home_page"))
                 return redirect(next_page)
             else:
