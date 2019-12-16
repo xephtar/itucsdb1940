@@ -6,15 +6,21 @@ class Vets:
         "id bigint NOT NULL DEFAULT nextval('vet_id_seq'::regclass)",
         'name text COLLATE pg_catalog."default"',
         'age integer',
+        'address character varying COLLATE pg_catalog."default"',
+        'profession character varying COLLATE pg_catalog."default"',
+        'gender character varying COLLATE pg_catalog."default"',
         'CONSTRAINT vets_pkey PRIMARY KEY (id)'
     ]
 
     sql_field_number = len(sql_fields)
 
-    def __init__(self, id=None, name=None, age=None):
+    def __init__(self, id=None, name=None, age=None, address=None, profession=None, gender=None):
         self.id = id
         self.name = name
         self.age = age
+        self.address = address
+        self.profession = profession
+        self.gender = gender
 
         exp = '''CREATE TABLE IF NOT EXISTS {table_name} ({fields})'''.format(
             table_name=self.__class__.__name__.lower(),
@@ -26,26 +32,32 @@ class Vets:
         if self.id:
             update_set = ','.join([
                 "{key}=%s".format(key='name'),
-                "{key}=%s".format(key='age')
+                "{key}=%s".format(key='age'),
+                "{key}=%s".format(key='address'),
+                "{key}=%s".format(key='profession'),
+                "{key}=%s".format(key='gender')
             ])
             exp = '''UPDATE {table_name} SET {values} WHERE id=%s RETURNING id'''.format(
                 table_name=self.__class__.__name__.lower(),
                 values=update_set,
             )
-            self.id = db_client.fetch(exp, (self.name,
-                                            self.age,
-                                            self.id))[0][0]
+            self.id = db_client.fetch(exp, (self.name, self.age,
+                                            self.address, self.profession,
+                                            self.gender, self.id))[0][0]
         else:
             exp = '''INSERT INTO {table_name} ({table_fields}) VALUES ({values})'''.format(
                 table_name=self.__class__.__name__.lower(),
                 table_fields=','.join([
                     '{}'.format('name'),
-                    '{}'.format('age')
+                    '{}'.format('age'),
+                    '{}'.format('address'),
+                    '{}'.format('profession'),
+                    '{}'.format('gender'),
                 ]),
-                values=','.join(['%s', '%s'])
+                values=','.join(['%s', '%s', '%s', '%s', '%s'])
             )
 
-            db_client.create(exp, (self.name, self.age))
+            db_client.create(exp, (self.name, self.age, self.address, self.profession, self.gender))
         return self
 
     def delete(self, **kwargs):

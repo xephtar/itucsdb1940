@@ -10,13 +10,13 @@ class Vets_to_Owners:
         'CONSTRAINT vets_to_owners_pkey PRIMARY KEY(owner_phone, vet_id)',
         '''CONSTRAINT owner_phone_fkey FOREIGN KEY(owner_phone)
         REFERENCES public.owners(phonenumber) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
         NOT VALID''',
         '''CONSTRAINT vet_id_fkey FOREIGN KEY(vet_id)
         REFERENCES public.vets(id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
         NOT VALID'''
     ]
 
@@ -41,9 +41,6 @@ class Vets_to_Owners:
             ]),
             values=','.join(['%s', '%s'])
         )
-        # v = Vets.get(id=self.vet_id)
-        # o = Owners.get(phonenumber=self.phonenumber)
-        # if v and o:
         c = db_client.create(exp_relation_table, (self.phonenumber, self.vet_id))
         if c:
             return '{}'.format(404)
