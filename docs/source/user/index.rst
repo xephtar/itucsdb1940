@@ -45,4 +45,4 @@ After loged login required things will be seen.
 
     owner
     vet
-    relation
+    relations
