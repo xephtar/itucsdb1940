@@ -1,6 +1,6 @@
 On this endpoint, you can create vet.
 
-   .. figure:: vetcreate.png
+   .. figure:: media/vetcreate.png
       :scale: 50 %
       :alt: vet create
 
@@ -8,7 +8,7 @@ On this endpoint, you can create vet.
 
 On this endpoint, you can see all registered vets.
 
-   .. figure:: vetall.png
+   .. figure:: media/vetall.png
       :scale: 50 %
       :alt: vet all
 
@@ -17,7 +17,7 @@ On this endpoint, you can see all registered vets.
 Then clicking the id, you will direct another endpoint.
 On this endpoint, you can edit or delete the vet.
 
-   .. figure:: vetedit.png
+   .. figure:: media/vetedit.png
       :scale: 50 %
       :alt: vet edit
 

@@ -1,7 +1,7 @@
 On this endpoint, you can create owner, if the phone number is
 not already exist.
 
-   .. figure:: ownercreate.png
+   .. figure:: media/ownercreate.png
       :scale: 50 %
       :alt: owner create
 
@@ -9,7 +9,7 @@ not already exist.
 
 On this endpoint, you can see all registered owners.
 
-   .. figure:: ownerall.png
+   .. figure:: media/ownerall.png
       :scale: 50 %
       :alt: owner all
 
@@ -19,7 +19,7 @@ Then clicking the phonenumber, you will direct another endpoint.
 On this endpoint, you can edit, delete or add the relation with the vet
 and owner.
 
-   .. figure:: owneredit.png
+   .. figure:: media/owneredit.png
       :scale: 50 %
       :alt: owner edit
 

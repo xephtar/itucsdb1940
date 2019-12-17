@@ -7,7 +7,7 @@ Welcome to Vet App's documentation!
 
    * Ömer Faruk Davarcı
 
-    .. figure:: media/logo.png
+    .. figure:: logo.png
         :scale: 50 %
         :alt: logo
 

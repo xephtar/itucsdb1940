@@ -3,7 +3,7 @@ User Guide
 
 Our application is opening as seen in figure below.
 
-   .. figure:: initial.png
+   .. figure:: media/initial.png
       :scale: 50 %
       :alt: home page
 
@@ -11,7 +11,7 @@ Our application is opening as seen in figure below.
 
 To use our app, firstly you should sign up.
 
-   .. figure:: signup.png
+   .. figure:: media/signup.png
       :scale: 50 %
       :alt: signup
 
@@ -19,7 +19,7 @@ To use our app, firstly you should sign up.
 
 Our sign up flow is simple, needed information is less.
 
-   .. figure:: signup2.png
+   .. figure:: media/signup2.png
       :scale: 50 %
       :alt: signup
 
@@ -27,7 +27,7 @@ Our sign up flow is simple, needed information is less.
 
 Then you should log in to use app.
 
-   .. figure:: login.png
+   .. figure:: media/login.png
       :scale: 50 %
       :alt: signup
 
@@ -35,7 +35,7 @@ Then you should log in to use app.
 
 After loged login required things will be seen.
 
-   .. figure:: logedin.png
+   .. figure:: media/logedin.png
       :scale: 50 %
       :alt: signup
 
