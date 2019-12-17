@@ -1,17 +1,22 @@
-Welcome to itucsdbNN's documentation!
+Welcome to Vet App's documentation!
 =====================================
 
-:Team: Team Name
+:Team: Vet App
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Ömer Faruk Davarcı
 
-**project description goes here (a few paragraphs)**
+    .. figure:: media/logo.png
+        :scale: 50 %
+        :alt: logo
+
+**Introduction**
+
+I have aimed to make the suitable app for Vet Hospitals. They can store the data
+of vets, owners and relation between vets and owners.
+
+I have tried to build a RESTful API. I have used Jinja2 for client side.
 
 Contents:
 
