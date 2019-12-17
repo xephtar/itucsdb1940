@@ -15,7 +15,8 @@
             </li>
             {% for owner in owners %}
             <li class="table-row">
-              <div class="col col-1" data-label="Phonenumber"><a href="{{ url_for('owner_profile', phonenumber = owner.phonenumber) }}">{{ owner.phonenumber }}</a></div>
+              <div class="col col-1" data-label="Phonenumber"><a href="{{ url_for('owner_profile',
+              phonenumber = owner.phonenumber) }}">{{ owner.phonenumber }}</a></div>
               <div class="col col-1" data-label="name">{{ owner.name }}</div>
               <div class="col col-1" data-label="age">{{ owner.age }}</div>
               <div class="col col-1" data-label="profession">{{ owner.treatments }}</div>
