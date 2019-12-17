@@ -1,3 +1,7 @@
+=========
+Vet Views
+=========
+
 On this endpoint, you can create vet.
 
    .. figure:: media/vetcreate.png
